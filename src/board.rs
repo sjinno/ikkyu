@@ -10,7 +10,7 @@ pub enum Grid {
 impl Display for Grid {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         match self {
-            &Grid::Empty => f.write_char('・'),
+            &Grid::Empty => f.write_char('·'),
             &Grid::Black => f.write_char('●'),
             &Grid::White => f.write_char('○'),
         }
@@ -19,7 +19,7 @@ impl Display for Grid {
 
 #[derive(Clone, Debug)]
 pub struct Board {
-    grids: [[Grid; 19]; 19],
+    pub grids: [[Grid; 19]; 19],
 }
 
 impl Board {
@@ -32,7 +32,7 @@ impl Board {
     pub fn draw(&self) {
         for row in self.grids {
             for col in row {
-                print!("{}", col);
+                print!("{} ", col);
             }
             println!();
         }

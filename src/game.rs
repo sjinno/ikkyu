@@ -1,8 +1,8 @@
-use super::board::Board;
+use super::board::{Board, Grid};
 
 use std::io;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 enum Turn {
     Black,
     White,
@@ -63,15 +63,25 @@ impl Game {
             if input == [42, 42] {
                 continue;
             };
+
+            if self.turn == Turn::Black {
+                self.board.grids[input[1] - 1][input[0] - 1] = Grid::Black;
+                self.turn = Turn::White;
+            } else {
+                self.board.grids[input[1] - 1][input[0] - 1] = Grid::White;
+                self.turn = Turn::Black;
+            }
+
+            self.board.draw();
         }
     }
 }
 
-fn parse_input(input: String) -> Result<[u8; 2], ParseError> {
-    let split: Vec<u8> = input
+fn parse_input(input: String) -> Result<[usize; 2], ParseError> {
+    let split: Vec<usize> = input
         .trim()
         .split(' ')
-        .map(|v| v.parse::<u8>().unwrap_or(42))
+        .map(|v| v.parse::<usize>().unwrap_or(42))
         .collect();
     dbg!(&split);
 
