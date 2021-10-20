@@ -8,4 +8,5 @@ fn main() {
     let board = Board::new();
     let mut game = GameBuilder::build(board);
     game.board.draw();
+    game.init();
 }
